@@ -1,0 +1,6 @@
+bin/
+include/
+lib/
+static_root/
+.DS_STORE
+.Python
