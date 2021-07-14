@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\User\Desktop\Devs\trydjango2"
+VIRTUAL_ENV="C:\Users\User\Desktop\Devs\repo-trydjango\trydjango2"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

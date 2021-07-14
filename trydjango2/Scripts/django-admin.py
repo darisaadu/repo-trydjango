@@ -1,4 +1,4 @@
-#!c:\users\user\desktop\devs\trydjango2\scripts\python.exe
+#!c:\users\user\desktop\devs\repo-trydjango\trydjango2\scripts\python.exe
 from django.core import management
 
 if __name__ == "__main__":
