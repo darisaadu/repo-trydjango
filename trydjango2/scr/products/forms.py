@@ -1,7 +1,11 @@
 from django import forms
 
+from django.contrib.auth import get_user_model
+
 from . models import Product
 
+
+User = get_user_model()
 
 class ProductForm(forms.ModelForm):
 	title 		= forms.CharField(label='', widget=forms.TextInput(
@@ -25,6 +29,15 @@ class ProductForm(forms.ModelForm):
 			'description',
 			'price'
 		]
+
+	def clean_title(self):
+		title = self.cleaned_data.get('title')
+		qs = Product.objects.filter(title__iexact=title)
+		if qs.exists():
+			raise forms.ValidationError(f'{title} is taken. Try again.')
+		# if title.startswith('Tesla'):
+		# 	raise forms.ValidationError(f'{title} is taken. Try again.')
+		return title
 
 
 class RawProductForm(forms.Form):

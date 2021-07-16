@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}Create Page{% endblock %}
 
-{% block content %}	
+{% block content %}
+
+
+	{% if added %}
+		<div class='alert alert-warning'>Thank you for joining, we'll be in touch!</div>
+	{% endif %}
+
 <form action="." method="POST">{% csrf_token %}
-	{{ forms.as_p }}
+	{{ form.as_p }}
 	<input type="submit" value="Save">
 </form>
+	 
 {% endblock %}
 
 

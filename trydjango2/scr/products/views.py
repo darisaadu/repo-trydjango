@@ -10,13 +10,17 @@ from .models import Product
 
 
 def product_create_view(request):
+	context = {}
+	if request.user.is_authenticated:
+		context['some_cool_staff'] = "whatever"
 	form = ProductForm(request.POST or None)
+	print(request.user)
+	context['form'] = form
 	if form.is_valid():
 		form.save()
 		form = ProductForm()
-	context = {
-		'forms':form
-	}
+		context['added'] = True
+		context['form'] = form
 	return render(request, 'products/products_create.html', context)
 
 
@@ -42,7 +46,7 @@ def product_list_view(request):
 def product_detail_view(request, id):
 	obj = get_object_or_404(Product, id=id)
 	context = {
-		'objects': obj
+		'obj': obj
 	}
 	return render(request, 'products/products_detail.html', context)
 
@@ -51,9 +55,9 @@ def product_delete_view(request, id):
 	obj = get_object_or_404(Product, id=id)
 	if request.method == 'POST':
 		obj.delete()
-		return redirect('../../')
+		return redirect('/')
 	context = {
-		'objects': obj
+		'obj': obj
 	}
 	return render(request, 'products/products_delete.html', context)
 
