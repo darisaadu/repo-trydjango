@@ -3,8 +3,33 @@
 {% block title %}Delete Page{% endblock %}
 
 {% block content %}
-	{% for instance in object_list %}
-		<p>{{ instance.id }} - <a href="/products/{{instance.id}}">{{ instance.title }}</a>
-			<a href='/products/{{instance.id}}/delete'>Destroy</a></p>
-	{% endfor %}
+
+		<div class="row">
+			<div class="col-md-4">
+				<table class="table table-light">
+				<thead>
+					<tr>
+						<th scope="col">List Col</th>
+						<th scope="col">Delete Col</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for instance in object_list %}
+					<tr>
+						<td>
+							{{ instance.id }} - <a href="/products/{{instance.id}}">{{ instance.title }}</a>
+						</td>
+						<td>
+							<a href='/products/{{instance.id}}/delete'>Destroy</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+
+	
+	
 {% endblock %}

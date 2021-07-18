@@ -4,8 +4,8 @@ from django.urls import reverse
 class Product(models.Model):
 	title 		= models.CharField(max_length=150)
 	description = models.TextField(blank=True, null=True)
-	price 		= models.DecimalField(decimal_places=2, max_digits=1000)
-	summary 	= models.TextField(blank=False, null=False)
+	price 		= models.DecimalField(decimal_places=2, max_digits=1000, blank=True, null=True)
+	summary 	= models.TextField(blank=True, null=True)
 	featured 	= models.BooleanField(default=True)
 
 

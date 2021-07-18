@@ -2,7 +2,7 @@ from django.http import Http404
 
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import ProductForm, RawProductForm
+from .forms import ProductForm, RawProductForm, ProductUpdateForm
 
 from .models import Product
 
@@ -26,7 +26,7 @@ def product_create_view(request):
 
 def product_update_view(request, id):
 	obj = get_object_or_404(Product, id=id)
-	form = ProductForm(request.POST or None, instance=obj)
+	form = ProductUpdateForm(request.POST or None, instance=obj)
 	if form.is_valid():
 		form.save()
 	context = {
