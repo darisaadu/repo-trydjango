@@ -18,9 +18,14 @@ from django.urls import path, include
  
 from pages.views import home_view, about_view, contact_view
 
-   
+from account.views import login_view, logout_view, register_view   
 
 urlpatterns = [
+    path('login/', login_view),
+    path('logout/', logout_view),
+    path('register/', register_view),
+
+    
     path('polls/', include('polls.urls')),
     path('blog/', include('blog.urls')),
     path('courses/', include('courses.urls')),

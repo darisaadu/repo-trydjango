@@ -7,7 +7,8 @@
 	<p>This is the home page template</p>
 {% else %}
 	<h1>{{name|lower|upper|title}}</h1>
-	<h3>Please login</h3>
+	<a href="/login/"><h3>Please login</h3></a>
+	
 {% endif %}
 
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -6,27 +7,8 @@ from .forms import ProductForm, RawProductForm, ProductUpdateForm
 
 from .models import Product
 
-# Create your views here.
 
-# from django.contrib.auth import authenticate, login
-
-# def my_view(request):
-# 	username = request.POST['username']
-# 	password = request.POST['password']
-# 	user = authenticate(request, username=username, password=password)
-# 	if user is not None:
-# 		login(request, user)
-# 		return redirect('/')
-# 	else:
-# 		return redirect('/login')
-# 	return render(request, 'login.html', {})
-
-
-
-
-
-
-
+@login_required(login_url='/login')
 def product_create_view(request):
 	context = {}
 	if request.user.is_authenticated:
@@ -41,18 +23,18 @@ def product_create_view(request):
 		context['form'] = form
 	return render(request, 'products/products_create.html', context)
 
-
-def product_update_view(request, id):
+@login_required(login_url='/login')
+def product_update_view(request, id, *args, **kwargs):
 	obj = get_object_or_404(Product, id=id)
 	form = ProductUpdateForm(request.POST or None, instance=obj)
 	if form.is_valid():
 		form.save()
 	context = {
-		'forms':form
+		'form':form
 	}
 	return render(request, 'products/products_create.html', context)
 
-
+@login_required(login_url='/login')
 def product_list_view(request):
 	queryset = Product.objects.all()
 	context = {
@@ -60,7 +42,7 @@ def product_list_view(request):
 	}
 	return render(request, 'products/products_list.html', context)
 
-
+@login_required(login_url='/login')
 def product_detail_view(request, id):
 	obj = get_object_or_404(Product, id=id)
 	context = {
@@ -68,7 +50,7 @@ def product_detail_view(request, id):
 	}
 	return render(request, 'products/products_detail.html', context)
 
-
+@login_required(login_url='/login')
 def product_delete_view(request, id):
 	obj = get_object_or_404(Product, id=id)
 	if request.method == 'POST':
