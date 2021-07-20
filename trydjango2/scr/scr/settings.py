@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'myfourthapp',
 ]
 
+MY_VAR = 'this is my variable'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
