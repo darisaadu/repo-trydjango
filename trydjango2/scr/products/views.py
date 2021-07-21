@@ -4,11 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import ProductForm, RawProductForm, ProductUpdateForm
+from account.decorator import allower_user
 
 from .models import Product
 
 
-@login_required(login_url='/login')
+@login_required
+@allower_user(allower_roles=['admin'])
 def product_create_view(request):
 	context = {}
 	if request.user.is_authenticated:
@@ -23,18 +25,19 @@ def product_create_view(request):
 		context['form'] = form
 	return render(request, 'products/products_create.html', context)
 
-@login_required(login_url='/login')
+@login_required
 def product_update_view(request, id, *args, **kwargs):
 	obj = get_object_or_404(Product, id=id)
 	form = ProductUpdateForm(request.POST or None, instance=obj)
 	if form.is_valid():
 		form.save()
 	context = {
-		'form':form
+		'form':form,
+		'obj': obj
 	}
-	return render(request, 'products/products_create.html', context)
+	return render(request, 'products/products_update.html', context)
 
-@login_required(login_url='/login')
+@login_required
 def product_list_view(request):
 	queryset = Product.objects.all()
 	context = {
@@ -42,7 +45,7 @@ def product_list_view(request):
 	}
 	return render(request, 'products/products_list.html', context)
 
-@login_required(login_url='/login')
+@login_required
 def product_detail_view(request, id):
 	obj = get_object_or_404(Product, id=id)
 	context = {
@@ -50,7 +53,7 @@ def product_detail_view(request, id):
 	}
 	return render(request, 'products/products_detail.html', context)
 
-@login_required(login_url='/login')
+@login_required
 def product_delete_view(request, id):
 	obj = get_object_or_404(Product, id=id)
 	if request.method == 'POST':

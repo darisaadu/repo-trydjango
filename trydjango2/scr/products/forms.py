@@ -32,17 +32,17 @@ class ProductForm(forms.ModelForm):
 class ProductUpdateForm(forms.ModelForm):
 	title 		= forms.CharField(label='', widget=forms.TextInput(
 						attrs={'placeholder': 'Your title'}))
-	description = forms.CharField(required=False, widget=forms.Textarea(
+	description = forms.CharField(label='', required=False, widget=forms.Textarea(
 										attrs={
 											'placeholder': 'Your Description',
 											'class': 'my-new-class-name two',
 											'id': 'id-of-textarea',
-											'rows': 20,
-											'cols': 120
+											'rows': 10,
+											'cols': 80
 										}
 									)
 								)
-	price 		= forms.DecimalField(initial=99.99)
+	price 		= forms.DecimalField(label='', initial=99.99)
 
 	class Meta:
 		model = Product
@@ -71,7 +71,7 @@ class RawProductForm(forms.Form):
 											'class': 'my-new-class-name two',
 											'id': 'id-of-textarea',
 											'rows': 20,
-											'cols': 120
+											'cols': 60
 										}
 									))
 	price 		= forms.DecimalField(initial=99.99)

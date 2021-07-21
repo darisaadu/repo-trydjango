@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth import login, logout, authenticate
+from .decorator import unauthenticated_user
 
 
 
 # Create your views here.
 
+@unauthenticated_user
 def login_view(request, *args, **kwargs):
+    # if request.user.is_authenticated:
+    #     return redirect('/')
+    # else:
     form = LoginForm(request.POST or None)
     if form.is_valid():
         username = form.cleaned_data.get('username')
@@ -26,7 +31,14 @@ def logout_view(request):
     logout(request)
     return redirect('/login')
 
+
+@unauthenticated_user
 def register_view(request, *args, **kwargs):
+    # this condition has the same functionality with @ununthenticated_user
+
+    # if request.user.is_authenticated:
+    #     return redirect('/')
+    # else:
     form = RegisterForm(request.POST or None)
     if form.is_valid():
         form_obj = form.save()
