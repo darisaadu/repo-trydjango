@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
+<!-- {% load static %} -->
+
 {% block title %}Detail Page{% endblock %}
 
 {% block content %}	
-	<h1>{{ objects.title }}</h1>
-	<p>
-	    {% if objects.description != None and objects.description != '' %}
-	   		{{ objects.description }}
-	    {% else %}
-			   Description Coming Soon!!!
-		{% endif %}
-	</p>
-	<p>{{ objects.price }}</p>
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8b2NlYW4lMjBiZWFjaHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="Beach images" class="img-fluid">
+			<h1>{{ obj.title }}</h1>
+			<p>
+				{% if obj.description != None and objects.description != '' %}
+					{{ obj.description }}
+				{% else %}
+					Description Coming Soon!!!
+				{% endif %}
+			</p>
+			<p>{{ obj.price }}</p>
+		</div>
+	</div>
 {% endblock %}
 
 

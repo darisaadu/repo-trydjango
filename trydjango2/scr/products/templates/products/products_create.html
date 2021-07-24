@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Create Page{% endblock %}
 
 {% block content %}
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<img src="{% static '/img/beach.jpg' %}" alt="Beach images" class="img-fluid">
+			{% if added %}
+				<div class='alert alert-warning'>Thank you for joining, we'll be in touch!</div>
+			{% endif %}
 
+			<form action="." method="POST">{% csrf_token %}
+				{{ form.as_p }}
+				<input type="submit" value="Save">
+			</form>
+		</div>
+	</div>
 
-	{% if added %}
-		<div class='alert alert-warning'>Thank you for joining, we'll be in touch!</div>
-	{% endif %}
-
-<form action="." method="POST">{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Save">
-</form>
+	
 	 
 {% endblock %}
 
