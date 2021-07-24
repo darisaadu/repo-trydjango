@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
+from django.contrib.auth.models import Group
 from django.contrib.auth import login, logout, authenticate
 from .decorator import unauthenticated_user
 
-
-
-# Create your views here.
 
 @unauthenticated_user
 def login_view(request, *args, **kwargs):
@@ -47,5 +45,9 @@ def register_view(request, *args, **kwargs):
         password = form.cleaned_data.get('password')
         form_obj.set_password(password)
         form_obj.save()
+
+        group = Group.objects.get(name='customer')
+        form_obj.groups.add(group)
+
         return redirect('/login')
     return render(request, 'account/register.html', {'form': form})

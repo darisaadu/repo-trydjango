@@ -24,3 +24,18 @@ def allower_user(allower_roles=[]):
                 return HttpResponse('You are not authorized to view this page.')
         return wrapper_func
     return decorator
+
+
+def admin_only(func_view):
+    def wrapper_func(request, *args, **kwargs):
+        group = None
+        if request.user.groups.exists():
+            group = request.user.groups.all()[0].name
+
+        if group == 'customer':
+            return redirect('/products/customer')
+
+        if group == "admin":
+            return func_view(request, *args, **kwargs)
+        return func_view(request, *args, **kwargs)
+    return wrapper_func

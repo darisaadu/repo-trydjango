@@ -22,3 +22,26 @@ class RegisterForm(forms.ModelForm):
             'username',
             'email'
         ]
+
+    def clean(self):
+        data = self.cleaned_data
+        password_1 = data.get('password')
+        password_2 = data.get('password2')
+        if password_1 != password_2:
+            # raise forms.ValidationError('Passwords must match.')
+            self.add_error("password", "Passwords must match.")
+        return data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        qs = User.objects.filter(username__iexact=username)
+        if qs.exists():
+            raise forms.ValidationError(f"{username} is taken. Try again.")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        qs = User.objects.filter(email__iexact=email)
+        if qs.exists():
+            raise forms.ValidationError(f"{email} is taken. Try again.")
+        return email

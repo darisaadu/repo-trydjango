@@ -4,13 +4,18 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import ProductForm, RawProductForm, ProductUpdateForm
-from account.decorator import allower_user
+from account.decorator import allower_user, admin_only
 
 from .models import Product
 
 
+def customer_view(request, *args, **kwargs):
+    context = {'customer': 'Customers is here!!'}
+    return render(request, 'products/customer_page.html', context)
+
+
 @login_required
-@allower_user(allower_roles=['admin'])
+@admin_only
 def product_create_view(request):
 	context = {}
 	if request.user.is_authenticated:
@@ -26,6 +31,7 @@ def product_create_view(request):
 	return render(request, 'products/products_create.html', context)
 
 @login_required
+@admin_only
 def product_update_view(request, id, *args, **kwargs):
 	obj = get_object_or_404(Product, id=id)
 	form = ProductUpdateForm(request.POST or None, instance=obj)
@@ -54,6 +60,7 @@ def product_detail_view(request, id):
 	return render(request, 'products/products_detail.html', context)
 
 @login_required
+@admin_only
 def product_delete_view(request, id):
 	obj = get_object_or_404(Product, id=id)
 	if request.method == 'POST':
