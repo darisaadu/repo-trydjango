@@ -10,8 +10,15 @@ from .models import Product
 
 
 def customer_view(request, *args, **kwargs):
-    context = {'customer': 'Customers is here!!'}
-    return render(request, 'products/customer_page.html', context)
+	title = 'My Profile'
+	profile = 'This profile at less contain customer photo'
+	customer = 'Customers is here!!'
+	context = {
+		'title': title,
+		'customer': customer, 
+		'profile': profile
+		}
+	return render(request, 'products/customer_page.html', context)
 
 
 @login_required
