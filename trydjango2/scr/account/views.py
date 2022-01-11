@@ -39,7 +39,7 @@ def register_view(request, *args, **kwargs):
     # else:
     form = RegisterForm(request.POST or None)
     if form.is_valid():
-        form_obj = form.save()
+        form_obj = form.save(commit=False)
         form_obj.is_actived = False
         form_obj.save()
         password = form.cleaned_data.get('password')
@@ -51,3 +51,4 @@ def register_view(request, *args, **kwargs):
 
         return redirect('/login')
     return render(request, 'account/register.html', {'form': form})
+    
