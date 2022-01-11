@@ -13,7 +13,7 @@ from .models import Product
 
 def customer_view(request, *args, **kwargs):
 	title = 'My Profile'
-	profile = 'This profile at less contain customer photo'
+	profile = 'This profile at less contain customer picture'
 	customer = 'Customers is here!!'
 	context = {
 		'title': title,
