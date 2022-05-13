@@ -2,7 +2,7 @@
 {% block title %}Course List Page{% endblock %}
 
 {% block content %}	
-	{% for instance in object_list %}
+	{% for instance in objects %}
 		<p>{{ instance.id }} - <a href="{{ instance.get_absolute_url }}">{{ instance.title }}</a></p>
 	{% endfor %}
 {% endblock %}

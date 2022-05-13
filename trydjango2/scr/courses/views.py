@@ -15,7 +15,7 @@ class CourseObjectMixin(object):
 		id = self.kwargs.get('id')
 		obj = None
 		if id is not None:
-			obj = get_object_or_404(Course,id=id)
+			obj = get_object_or_404(self.model,id=id)
 		return obj
 
 
@@ -84,7 +84,7 @@ class CourseCreateView(View):
 		if form.is_valid():
 			form.save()
 			form = CourseModelForm()
-			# return redirect('../')
+			return redirect('../')
 		context = {"form": form}
 		return render(request, self.template_name, context)
 
@@ -96,7 +96,7 @@ class CourseListView(View):
 		return self.queryset
 
 	def get(self, request, *args, **kwargs):
-		context = {'object_list': self.get_queryset}
+		context = {'objects': self.get_queryset}
 		return render(request, self.template_name, context)
 
 class CourseView(CourseObjectMixin, View):

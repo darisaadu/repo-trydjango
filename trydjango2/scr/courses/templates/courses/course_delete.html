@@ -3,7 +3,7 @@
 
 {% block content %}
 	<form action="." method="POST">{% csrf_token %}	
-		<p>Do you want to delete the course: "{{ object.title }}" </p>
+		<p>Do you really want to delete this object: {{ object.title }} </p>
 		<p><input type='submit' value="Yes" /> <a href="../">Cancel</a> </p>
 	</form>
 {% endblock %}
